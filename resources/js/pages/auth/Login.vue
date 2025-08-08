@@ -28,7 +28,7 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthBase title="DecaPlast" description="">
+    <AuthBase title="Login" description="Saisir votre Email et Mot de Passe pour Authentifier">
         <Head title="Se connecter" />
 
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">

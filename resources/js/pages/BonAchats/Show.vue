@@ -25,6 +25,15 @@ defineProps({
             <div class="flex items-center justify-between mb-6">
                 <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Bon d'achat #{{ bonAchat.n_ba }}</h1>
                 <div class="flex space-x-2">
+                    <a
+                        :href="`/bon-achats/${bonAchat.n_ba}/export-pdf`"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-gray-50 bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors ml-2"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                        </svg>
+                        Exporter PDF
+                    </a>
                     <Link
                         :href="`/bon-achats/${bonAchat.n_ba}/edit`"
                         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-gray-50 bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors"

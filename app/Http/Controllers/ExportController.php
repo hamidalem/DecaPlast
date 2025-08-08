@@ -1,0 +1,95 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\BonAchat;
+use App\Models\BonVente;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+class ExportController extends Controller
+{
+    public function exportBonAchatToPdf($n_ba)
+    {
+        $bonAchat = BonAchat::with(['fournisseur', 'produits'])
+            ->where('n_ba', $n_ba)
+            ->firstOrFail();
+
+        // Calculate totals
+        $totalAmount = $bonAchat->produits->sum(function ($product) {
+            return $product->pivot->qte_achat * $product->pivot->prix_achat;
+        });
+
+        $montantVerse = $bonAchat->montant_verse ?? 0;
+        $resteAPayer = $totalAmount - $montantVerse;
+
+        // Prepare data for the view
+        $data = [
+            'bonAchat' => $bonAchat,
+            'totalAmount' => $totalAmount,
+            'montantVerse' => $montantVerse,
+            'resteAPayer' => $resteAPayer,
+            'dateFormatted' => $bonAchat->date_ba->format('d/m/Y'),
+        ];
+
+        // Generate PDF
+        $pdf = Pdf::loadView('pdf.bon-achat', $data);
+
+        // Set paper size and orientation
+        $pdf->setPaper('A4', 'portrait');
+
+        // Download the PDF file
+        return $pdf->download("bon-achat-{$n_ba}.pdf");
+
+        // Alternatively, you can use stream() to display in browser:
+        // return $pdf->stream("bon-achat-{$n_ba}.pdf");
+    }
+
+
+    public function exportBonVenteToPdf($n_bv)
+    {
+        // Get the bon vente with relationships
+        $bonVente = BonVente::with(['client', 'produits'])
+            ->where('n_bv', $n_bv)
+            ->firstOrFail();
+
+        // Calculate totals
+        $totalAmount = $bonVente->produits->sum(function ($product) {
+            return $product->pivot->qte_vente * $product->pivot->prix_vente;
+        });
+
+        $montantVerse = $bonVente->montant_verse ?? 0;
+        $resteAPayer = $totalAmount - $montantVerse;
+
+        // Prepare data for the view
+        $data = [
+            'bonVente' => $bonVente,
+            'totalAmount' => $totalAmount,
+            'montantVerse' => $montantVerse,
+            'resteAPayer' => $resteAPayer,
+            'dateFormatted' => $bonVente->date_bv->format('d/m/Y'),
+        ];
+
+        // Render the view to HTML
+        $html = view('pdf.bon-vente', $data)->render();
+
+        // Setup Dompdf options
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultFont', 'DejaVu Sans');
+
+        // Instantiate Dompdf
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Stream the PDF
+        return $dompdf->stream("bon-vente-{$n_bv}.pdf");
+
+        // Or download:
+        // return $dompdf->download("bon-vente-{$n_bv}.pdf");
+    }
+}
