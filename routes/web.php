@@ -16,12 +16,13 @@ Route::get('/', function () {
     return Inertia::render('auth/Login');
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('dashboard', function () {
+//    return Inertia::render('Dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::resource('fournisseurs', FournisseurController::class)->middleware(['auth', 'verified']);
+Route::resource('fournisseurs', FournisseurController::class)->middleware(['auth', 'verified'])
+    ->name('index','fournisseurs');
 
 Route::resource('clients', ClientController::class)->middleware(['auth', 'verified']);
 
@@ -55,6 +56,8 @@ Route::get('/bon-achats/{n_ba}/export-pdf', [ExportController::class, 'exportBon
 
 Route::get('/bon-ventes/{n_bv}/export-pdf', [ExportController::class, 'exportBonVenteToPdf'])
     ->name('bon-ventes.export-pdf');
+
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

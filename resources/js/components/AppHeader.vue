@@ -92,7 +92,7 @@ const mainNavItems: NavItem[] = [
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-8xl">
 
 
-                <Link :href="route('dashboard')" class="flex items-center gap-x-2">
+                <Link :href="route('fournisseurs')" class="flex items-center gap-x-2">
                     <AppLogo />
                 </Link>
 

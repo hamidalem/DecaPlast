@@ -6,8 +6,8 @@ use App\Models\BonAchat;
 use App\Models\BonVente;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class ExportController extends Controller
 {
@@ -89,7 +89,8 @@ class ExportController extends Controller
         // Stream the PDF
         return $dompdf->stream("bon-vente-{$n_bv}.pdf");
 
-        // Or download:
-        // return $dompdf->download("bon-vente-{$n_bv}.pdf");
+
     }
+
+
 }

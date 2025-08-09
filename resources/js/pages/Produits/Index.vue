@@ -6,6 +6,7 @@ defineProps({
     produits: Array,
     categories: Array
 });
+
 </script>
 
 <template>
