@@ -18,7 +18,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
+import { BookOpen, Folder, HomeIcon, LayoutGrid, Menu, Search } from 'lucide-vue-next';
 import { computed } from 'vue';
 import { UserRound } from 'lucide';
 
@@ -40,7 +40,11 @@ const activeItemStyles = computed(
 );
 
 const mainNavItems: NavItem[] = [
-
+    {
+        title: 'Accueil',
+        href: '/dashboard',
+        icon: HomeIcon,
+    },
     {
         title: 'Fournisseur',
         href: '/fournisseurs',
@@ -81,6 +85,7 @@ const mainNavItems: NavItem[] = [
 
 
 
+
 ];
 
 
@@ -92,7 +97,7 @@ const mainNavItems: NavItem[] = [
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-8xl">
 
 
-                <Link :href="route('fournisseurs')" class="flex items-center gap-x-2">
+                <Link :href="route('dashboard')" class="flex items-center gap-x-2">
                     <AppLogo />
                 </Link>
 
@@ -103,11 +108,16 @@ const mainNavItems: NavItem[] = [
                             <NavigationMenuItem v-for="(item, index) in mainNavItems" :key="index" class="relative flex h-full items-center">
                                 <Link :href="item.href">
                                     <NavigationMenuLink
-                                        :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href), 'h-9 cursor-pointer px-3']"
+                                        :class="[
+        navigationMenuTriggerStyle(),
+        activeItemStyles(item.href),
+        'h-9 flex items-center px-3'
+    ]"
                                     >
-                                        <component v-if="item.icon" :is="item.icon" class="mr-2 h-4 w-4" />
+                                        <component  class="mr-2 h-4 w-4" />
                                         {{ item.title }}
                                     </NavigationMenuLink>
+
                                 </Link>
                                 <div
                                     v-if="isCurrentRoute(item.href)"

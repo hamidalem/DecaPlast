@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('quantite_depot', function (Blueprint $table) {
-            $table->integer('id_depot');
-            $table->integer('id_prod');
+            $table->unsignedInteger('id_depot');
+            $table->unsignedInteger('id_prod');
             $table->integer('qte_depot')->nullable();
             $table->primary(['id_depot', 'id_prod']);
             $table->foreign('id_depot')->references('id_depot')->on('depots');

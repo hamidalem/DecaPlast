@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BonAchat;
 use App\Models\BonVente;
+use App\Models\Categorie;
+use App\Models\Produit;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -90,6 +92,34 @@ class ExportController extends Controller
         return $dompdf->stream("bon-vente-{$n_bv}.pdf");
 
 
+    }
+
+
+    public function exportProduitsToPdf()
+    {
+        // Get all products with their categories
+        $produits = Produit::with('categorie')->get();
+
+        // Calculate statistics
+        $totalProduits = $produits->count();
+        $categoriesCount = Categorie::count();
+
+        // Prepare data for the view
+        $data = [
+            'produits' => $produits,
+            'totalProduits' => $totalProduits,
+            'categoriesCount' => $categoriesCount,
+            'dateFormatted' => now()->format('d/m/Y H:i'),
+        ];
+
+        // Generate PDF
+        $pdf = Pdf::loadView('pdf.liste-produits', $data);
+
+        // Set paper size and orientation
+        $pdf->setPaper('A4', 'portrait');
+
+        // Download the PDF file
+        return $pdf->download("liste-produits-".now()->format('Y-m-d').".pdf");
     }
 
 

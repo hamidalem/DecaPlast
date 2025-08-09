@@ -3,8 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 defineProps({
-    categories: Array,
-    parentCategories: Array
+    categories: Array
 });
 </script>
 
@@ -39,9 +38,6 @@ defineProps({
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">
                                 Nom
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">
-                                Catégorie Parente
-                            </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Actions</span>
                             </th>
@@ -61,9 +57,6 @@ defineProps({
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                 {{ categorie.nom_categ }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ categorie.parent?.nom_categ || 'Aucune' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end space-x-2">

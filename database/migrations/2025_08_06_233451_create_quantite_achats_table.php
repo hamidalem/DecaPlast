@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('quantite_achats', function (Blueprint $table) {
-            $table->integer('n_ba');
-            $table->integer('id_prod');
+            $table->unsignedInteger('n_ba');
+            $table->unsignedInteger('id_prod');
             $table->integer('qte_achat')->nullable();
             $table->float('prix_achat')->nullable();
             $table->primary(['n_ba', 'id_prod']);

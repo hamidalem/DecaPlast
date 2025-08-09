@@ -21,27 +21,30 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #333;
             display: flex;
-            justify-content: space-between; /* Push logo area to the right */
-            align-items: center; /* Vertically align items */
+            justify-content: center; /* Center the entire header content */
+            align-items: center;
         }
 
         .logo-area {
             display: flex;
-            align-items: center; /* Align logo and text vertically */
+            align-items: center;
+            flex-direction: column; /* Stack the logo and boutique name vertically */
+            text-align: center; /* Center the text within the area */
         }
 
         .logo {
-            width: 70px; /* Smaller logo size */
+            width: 70px;
             height: auto;
-
         }
 
         .boutique-name {
-            font-size: 24px; /* Slightly smaller boutique name */
+            font-size: 24px;
             font-weight: bold;
-            margin: 0;
+            margin: 10px 0 0; /* Add a top margin for spacing from the logo */
             color: tomato;
         }
+
+
 
         .title {
             font-size: 28px;
@@ -141,25 +144,7 @@
             margin-top: 20px;
         }
 
-        .signatures {
-            margin-top: 100px;
-            display: flex;
-            justify-content: space-between;
-        }
 
-        .signature-box {
-            width: 250px;
-            text-align: center;
-        }
-
-        .signature-line {
-            border-top: 1px solid #000;
-            margin-bottom: 5px;
-        }
-
-        .signature-label {
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>

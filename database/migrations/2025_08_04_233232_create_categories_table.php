@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id_categ');
-            $table->string('nom_categ', 100)->nullable();
-            $table->integer('id_parent')->nullable();
-            $table->foreign('id_parent')->references('id_categ')->on('categories');
+            $table->string('nom_categ', 100);
+
         });
     }
 

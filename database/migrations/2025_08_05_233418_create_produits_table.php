@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('produits', function (Blueprint $table) {
             $table->increments('id_prod');
-            $table->integer('id_categ')->default(0)->nullable();
+            $table->unsignedInteger('id_categ');
             $table->string('nom_prod', 500)->nullable();
             $table->string('desc_prod', 900)->nullable();
             $table->foreign('id_categ')->references('id_categ')->on('categories');
