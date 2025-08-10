@@ -36,7 +36,7 @@ class ProduitController extends Controller
 
         Produit::create($request->all());
 
-        return redirect()->route('produits.index')->with('success', 'Produit créé avec succès.');
+        return redirect()->route('bon-achats.create')->with('success', 'Produit créé avec succès.');
     }
 
     public function show(Produit $produit)
@@ -55,21 +55,25 @@ class ProduitController extends Controller
     }
 
     public function update(Request $request, Produit $produit)
+
     {
+
         $request->validate([
+
             'nom_prod' => 'required|string|max:500',
+
             'desc_prod' => 'nullable|string|max:900',
+
             'id_categ' => 'nullable|exists:categories,id_categ',
+
         ]);
+
 
         $produit->update($request->all());
 
+
         return redirect()->route('produits.index')->with('success', 'Produit mis à jour avec succès.');
+
     }
 
-    public function destroy(Produit $produit)
-    {
-        $produit->delete();
-        return redirect()->route('produits.index')->with('success', 'Produit supprimé avec succès.');
-    }
 }

@@ -28,7 +28,8 @@ class FournisseurController extends Controller
 
         Fournisseur::create($request->all());
 
-        return redirect()->route('fournisseurs.index')->with('success', 'Fournisseur created successfully.');
+        // The redirection has been updated here to return to the bon-achats create page.
+        return redirect()->route('bon-achats.create')->with('success', 'Fournisseur created successfully.');
     }
 
     public function show(Fournisseur $fournisseur)

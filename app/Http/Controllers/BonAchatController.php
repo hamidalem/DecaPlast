@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BonAchat;
+use App\Models\Categorie;
 use App\Models\Fournisseur;
 use App\Models\Produit;
 use Illuminate\Http\Request;
@@ -55,13 +56,16 @@ class BonAchatController extends Controller
 
     public function create()
     {
+        // Fetch all the necessary data to pass to the view
         $fournisseurs = Fournisseur::all();
-        $produits = Produit::all();
+        $produits = Produit::with('categorie')->get();
+        $categories = Categorie::all(); // Fetch all categories
 
         return Inertia::render('BonAchats/Create', [
             'fournisseurs' => $fournisseurs,
             'produits' => $produits,
-            'defaultDate' => now()->format('Y-m-d')
+            'categories' => $categories, // Pass the categories here
+            'defaultDate' => now()->toDateString(),
         ]);
     }
 
@@ -82,12 +86,13 @@ class BonAchatController extends Controller
             return $product['qte_achat'] * $product['prix_achat'];
         });
 
-        // Create without etat_ba first
+        // Create the BonAchat
         $bonAchat = BonAchat::create([
             'date_ba' => $request->date_ba,
             'nom_fourn' => $request->nom_fourn,
             'montant_verse' => $request->montant_verse,
             'montant_total' => $totalAmount,
+            'etat_ba' => $request->montant_verse >= $totalAmount ? 'paye' : 'verse'
         ]);
 
         // Attach products
@@ -98,14 +103,8 @@ class BonAchatController extends Controller
             ]);
         }
 
-        // Now determine and update etat_ba after products are attached
-        $bonAchat->update([
-            'etat_ba' => $request->montant_verse >= $totalAmount ? 'paye' : 'verse'
-        ]);
-
         return redirect()->route('bon-achats.index')->with('success', 'Bon d\'achat créé avec succès.');
     }
-
 
     public function show(BonAchat $bonAchat)
     {

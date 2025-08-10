@@ -13,15 +13,6 @@ defineProps({
         <div class="container mx-auto p-4 sm:p-6 lg:p-8">
             <div class="flex items-center justify-between mb-6">
                 <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Fournisseurs</h1>
-                <Link
-                    href="/fournisseurs/create"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-gray-50 bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-                    </svg>
-                    Add Fournisseur
-                </Link>
             </div>
 
             <div class="bg-white shadow-lg overflow-hidden sm:rounded-lg">

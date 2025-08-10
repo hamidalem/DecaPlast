@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
+import ClientModal from '@/Components/ClientModal.vue'; // Import the new modal component
 
 const props = defineProps({
     clients: Array,
@@ -22,6 +23,8 @@ const form = useForm({
     }],
     montant_verse: 0,
 });
+
+const showClientModal = ref(false); // State to control modal visibility
 
 // Get available quantity for a product in selected depot
 const getAvailableQuantity = (productId, depotId) => {
@@ -78,6 +81,17 @@ const submitForm = () => {
         etat_bv: parseFloat(data.montant_verse) >= totalAmount.value ? 'paye' : 'verse'
     })).post('/bon-ventes');
 };
+
+const openClientModal = () => {
+    showClientModal.value = true;
+};
+
+const closeClientModal = () => {
+    showClientModal.value = false;
+    // You may want to refresh the page or update the clients list here
+    // to show the newly added client. A simple page reload works for now.
+    // window.location.reload();
+};
 </script>
 
 <template>
@@ -101,9 +115,21 @@ const submitForm = () => {
                         >
                     </div>
 
-                    <!-- Client Dropdown -->
+                    <!-- Client Dropdown and Button -->
                     <div class="md:col-span-2">
-                        <label for="nom_client" class="block text-sm font-medium text-gray-700">Client</label>
+                        <div class="flex items-center justify-between mb-1">
+                            <label for="nom_client" class="block text-sm font-medium text-gray-700">Client</label>
+                            <button
+                                type="button"
+                                @click="openClientModal"
+                                class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                <span class="ml-1">Nouveau client</span>
+                            </button>
+                        </div>
                         <select
                             v-model="form.nom_client"
                             id="nom_client"
@@ -251,4 +277,10 @@ const submitForm = () => {
             </form>
         </div>
     </AppLayout>
+
+    <!-- Modals -->
+    <ClientModal
+        :show="showClientModal"
+        @close="closeClientModal"
+    />
 </template>

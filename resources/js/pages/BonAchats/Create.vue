@@ -2,10 +2,13 @@
 import { ref, computed } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
+import FournisseurModal from '@/Components/FournisseurModal.vue';
+import ProduitModal from '@/Components/ProduitModal.vue';
 
 const props = defineProps({
     fournisseurs: Array,
     produits: Array,
+    categories: Array, // Added categories as a prop
     defaultDate: String,
 });
 
@@ -15,6 +18,9 @@ const form = useForm({
     products: [{ id_prod: '', qte_achat: 1, prix_achat: 0 }],
     montant_verse: 0,
 });
+
+const showFournisseurModal = ref(false);
+const showProduitModal = ref(false);
 
 const totalAmount = computed(() => {
     return form.products.reduce((total, product) => {
@@ -42,6 +48,22 @@ const submitForm = () => {
         etat_ba: data.montant_verse >= totalAmount.value ? 'paye' : 'verse'
     })).post('/bon-achats');
 };
+
+const openFournisseurModal = () => {
+    showFournisseurModal.value = true;
+};
+
+const closeFournisseurModal = () => {
+    showFournisseurModal.value = false;
+};
+
+const openProduitModal = () => {
+    showProduitModal.value = true;
+};
+
+const closeProduitModal = () => {
+    showProduitModal.value = false;
+};
 </script>
 
 <template>
@@ -65,9 +87,21 @@ const submitForm = () => {
                         >
                     </div>
 
-                    <!-- Fournisseur Dropdown -->
+                    <!-- Fournisseur Dropdown and Button -->
                     <div class="md:col-span-2">
-                        <label for="nom_fourn" class="block text-sm font-medium text-gray-700">Fournisseur</label>
+                        <div class="flex items-center justify-between mb-1">
+                            <label for="nom_fourn" class="block text-sm font-medium text-gray-700">Fournisseur</label>
+                            <button
+                                type="button"
+                                @click="openFournisseurModal"
+                                class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                <span class="ml-1">Nouveau fournisseur</span>
+                            </button>
+                        </div>
                         <select
                             v-model="form.nom_fourn"
                             id="nom_fourn"
@@ -84,7 +118,19 @@ const submitForm = () => {
 
                 <!-- Products Section -->
                 <div class="border-t border-gray-200 pt-6 mt-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Produits</h3>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">Produits</h3>
+                        <button
+                            type="button"
+                            @click="openProduitModal"
+                            class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            <span class="ml-1">Nouveau produit</span>
+                        </button>
+                    </div>
 
                     <div v-for="(product, index) in form.products" :key="index" class="mb-4 p-4 border border-gray-200 rounded-xl bg-gray-50">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -195,4 +241,12 @@ const submitForm = () => {
             </form>
         </div>
     </AppLayout>
+
+    <!-- Modals -->
+    <FournisseurModal :show="showFournisseurModal" @close="closeFournisseurModal" />
+    <ProduitModal
+        :show="showProduitModal"
+        :categories="categories"
+        @close="closeProduitModal"
+    />
 </template>

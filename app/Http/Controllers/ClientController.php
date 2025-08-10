@@ -29,7 +29,8 @@ class ClientController extends Controller
 
         Client::create($request->all());
 
-        return redirect()->route('clients.index')->with('success', 'Client created successfully.');
+        // Redirect back to the bon vente creation page with a success message
+        return redirect()->route('bon-ventes.create')->with('success', 'Client créé avec succès.');
     }
 
     public function show(Client $client)
@@ -52,12 +53,12 @@ class ClientController extends Controller
 
         $client->update($request->all());
 
-        return redirect()->route('clients.index')->with('success', 'Client updated successfully.');
+        return redirect()->route('clients.index')->with('success', 'Client mis à jour avec succès.');
     }
 
     public function destroy(Client $client)
     {
         $client->delete();
-        return redirect()->route('clients.index')->with('success', 'Client deleted successfully.');
+        return redirect()->route('clients.index')->with('success', 'Client supprimé avec succès.');
     }
 }

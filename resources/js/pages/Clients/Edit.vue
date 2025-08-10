@@ -14,14 +14,14 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Edit Client" />
+    <Head title="Modifier le client" />
     <AppLayout>
         <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-6">Edit Client</h1>
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-6">Modifier le client</h1>
 
             <form @submit.prevent="form.put(`/clients/${props.client.nom_client}`)" class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-200">
                 <div class="mb-5">
-                    <label for="nom_client" class="block text-sm font-medium text-gray-700 mb-2">Nom:</label>
+                    <label for="nom_client" class="block text-sm font-medium text-gray-700 mb-2">Nom :</label>
                     <input
                         v-model="form.nom_client"
                         id="nom_client"
@@ -33,7 +33,7 @@ const form = useForm({
                 </div>
 
                 <div class="mb-5">
-                    <label for="num_tel_client" class="block text-sm font-medium text-gray-700 mb-2">Téléphone:</label>
+                    <label for="num_tel_client" class="block text-sm font-medium text-gray-700 mb-2">Téléphone :</label>
                     <input
                         v-model="form.num_tel_client"
                         id="num_tel_client"
@@ -45,7 +45,7 @@ const form = useForm({
                 </div>
 
                 <div class="mb-8">
-                    <label for="adresse_client" class="block text-sm font-medium text-gray-700 mb-2">Adresse:</label>
+                    <label for="adresse_client" class="block text-sm font-medium text-gray-700 mb-2">Adresse :</label>
                     <input
                         v-model="form.adresse_client"
                         id="adresse_client"
@@ -61,14 +61,14 @@ const form = useForm({
                         href="/clients"
                         class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
                     >
-                        Cancel
+                        Annuler
                     </Link>
                     <button
                         type="submit"
                         class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors"
                         :disabled="form.processing"
                     >
-                        Update
+                        Mettre à jour
                     </button>
                 </div>
             </form>
