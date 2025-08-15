@@ -76,4 +76,17 @@ class ProduitController extends Controller
 
     }
 
+    public function destroy(Produit $produit)
+    {
+        try {
+            $produit->delete();
+            return redirect()->route('produits.index')->with('success', 'Produit supprimé avec succès.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                return redirect()->back()->with('error', 'Impossible de supprimer ce produit. Il est associé à un bon d\'achat ou un bon de vente.');
+            }
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression.');
+        }
+    }
+
 }

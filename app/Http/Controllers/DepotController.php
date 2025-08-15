@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Depot;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -65,7 +66,14 @@ class DepotController extends Controller
 
     public function destroy(Depot $depot)
     {
-        $depot->delete();
-        return redirect()->route('depots.index')->with('success', 'Dépôt supprimé avec succès.');
+        try {
+            $depot->delete();
+            return redirect()->route('depots.index')->with('success', 'Dépôt supprimé avec succès.');
+        } catch (QueryException $e) {
+            if ($e->getCode() == 23000) {
+                return redirect()->back()->with('error', 'Impossible de supprimer ce dépôt car il contient des produits.');
+            }
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression.');
+        }
     }
 }

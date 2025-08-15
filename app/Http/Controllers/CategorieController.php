@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorie;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -58,11 +59,20 @@ $categorie->update([
 return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour avec succès');
 }
 
-public function destroy($id)
-{
-$categorie = Categorie::findOrFail($id);
-$categorie->delete();
 
-return redirect()->route('categories.index')->with('success', 'Catégorie supprimée avec succès');
-}
+    public function destroy($id)
+    {
+        try {
+            $categorie = Categorie::findOrFail($id);
+            $categorie->delete();
+            return redirect()->route('categories.index')->with('success', 'Catégorie supprimée avec succès.');
+        } catch (QueryException $e) {
+            // Check for a foreign key constraint violation (SQLSTATE 23000)
+            if ($e->getCode() == 23000) {
+                return redirect()->back()->with('error', 'Impossible de supprimer cette catégorie car elle est associée à un ou plusieurs produits.');
+            }
+            // For any other QueryException, redirect with a generic error
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression.');
+        }
+    }
 }

@@ -1,10 +1,15 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 defineProps({
     depots: Array
 });
+
+const page = usePage();
+const flashSuccess = computed(() => page.props.flash?.success);
+const flashError = computed(() => page.props.flash?.error);
 </script>
 
 <template>
@@ -25,6 +30,14 @@ defineProps({
                 </Link>
             </div>
 
+            <!-- Flash Messages -->
+            <div v-if="flashSuccess" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline">{{ flashSuccess }}</span>
+            </div>
+            <div v-if="flashError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline">{{ flashError }}</span>
+            </div>
+
             <!-- Table Container -->
             <div class="bg-white shadow-lg overflow-hidden sm:rounded-lg">
                 <div class="overflow-x-auto">
@@ -35,14 +48,12 @@ defineProps({
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">
                                 ID
                             </th>
-
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">
                                 Adresse
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">
                                 Produits
                             </th>
-
                             <th scope="col" class="relative px-6 py-3 text-center">
                                 <span class="sr-only">Actions</span>
                             </th>
@@ -60,7 +71,6 @@ defineProps({
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                 {{ depot.id_depot }}
                             </td>
-
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                 {{ depot.adresse_depot }}
                             </td>

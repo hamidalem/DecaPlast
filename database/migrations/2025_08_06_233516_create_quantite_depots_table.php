@@ -16,7 +16,10 @@ return new class extends Migration
             $table->unsignedInteger('id_prod');
             $table->integer('qte_depot')->nullable();
             $table->primary(['id_depot', 'id_prod']);
-            $table->foreign('id_depot')->references('id_depot')->on('depots');
+
+            // This line is updated to include onDelete('cascade')
+            $table->foreign('id_depot')->references('id_depot')->on('depots')->onDelete('cascade');
+
             $table->foreign('id_prod')->references('id_prod')->on('produits');
         });
     }

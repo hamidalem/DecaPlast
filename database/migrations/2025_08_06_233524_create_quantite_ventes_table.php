@@ -17,7 +17,10 @@ return new class extends Migration
             $table->integer('qte_vente')->nullable();
             $table->float('prix_vente')->nullable();
             $table->primary(['n_bv', 'id_prod']);
-            $table->foreign('n_bv')->references('n_bv')->on('bon_ventes');
+
+            // This line is updated to include onDelete('cascade')
+            $table->foreign('n_bv')->references('n_bv')->on('bon_ventes')->onDelete('cascade');
+
             $table->foreign('id_prod')->references('id_prod')->on('produits');
         });
     }
