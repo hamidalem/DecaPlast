@@ -150,7 +150,7 @@
 <div class="container">
     <div class="header">
         <div class="logo-area">
-            <img src="{{ asset('logo.png') }}" alt="DecaPlast Logo" class="logo"/>
+            <img src="/public/logo.png" alt="DecaPlast Logo" class="logo"/>
             <h1 class="boutique-name">DecaPlast</h1>
         </div>
         <div>

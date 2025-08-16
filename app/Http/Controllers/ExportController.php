@@ -6,8 +6,6 @@ use App\Models\BonAchat;
 use App\Models\BonVente;
 use App\Models\Categorie;
 use App\Models\Produit;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 
@@ -74,24 +72,14 @@ class ExportController extends Controller
             'dateFormatted' => $bonVente->date_bv->format('d/m/Y'),
         ];
 
-        // Render the view to HTML
-        $html = view('pdf.bon-vente', $data)->render();
+        // Generate PDF using the Pdf facade
+        $pdf = Pdf::loadView('pdf.bon-vente', $data);
 
-        // Setup Dompdf options
-        $options = new Options();
-        $options->set('isRemoteEnabled', true);
-        $options->set('defaultFont', 'DejaVu Sans');
+        // Set paper size and orientation
+        $pdf->setPaper('A4', 'portrait');
 
-        // Instantiate Dompdf
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-
-        // Stream the PDF
-        return $dompdf->stream("bon-vente-{$n_bv}.pdf");
-
-
+        // Download the PDF file
+        return $pdf->download("bon-vente-{$n_bv}.pdf");
     }
 
 
