@@ -14,7 +14,6 @@ defineProps({
             <img src="/logo.png" class="w-65 h-auto mb-8 animate-fade-in-down" alt="logo" />
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
-                <!-- Card for Clients -->
                 <Link href="/clients" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
                     <div class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-800 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -29,7 +28,6 @@ defineProps({
 
 
 
-                <!-- Card for Products -->
                 <Link href="/produits" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
                     <div class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-800 mb-4" viewBox="0 0 20 20" fill="currentColor">
@@ -39,7 +37,6 @@ defineProps({
                     </div>
                 </Link>
 
-                <!-- Card for Categories -->
                 <Link href="/categories" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
                     <div class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-800 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -54,7 +51,6 @@ defineProps({
                     </div>
                 </Link>
 
-                <!-- Card for Depots -->
                 <Link href="/depots" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
                     <div class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-12 w-12 text-gray-800 mb-4">
@@ -64,7 +60,6 @@ defineProps({
                     </div>
                 </Link>
 
-                <!-- Card for Purchase Orders -->
                 <Link href="/bon-achats" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
                     <div class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-800 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -77,7 +72,6 @@ defineProps({
                     </div>
                 </Link>
 
-                <!-- Card for Sales Orders -->
                 <Link href="/bon-ventes" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
                     <div class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-800 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -91,6 +85,32 @@ defineProps({
                 </Link>
             </div>
         </div>
+
+        <footer class="bg-gray-800 text-white p-6 text-center mt-auto">
+            <div class="max-w-7xl mx-auto">
+                <p class="text-lg font-semibold mb-2">A propos</p>
+                <div class="flex justify-center space-x-15 text-sm">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Alem Abdelhamid
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        +213 666 405 144
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-10 4.5h.01M21 12V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                        </svg>
+                        hamidpro198@gmail.com
+                    </span>
+                </div>
+            </div>
+        </footer>
     </AppLayout>
 </template>
 
