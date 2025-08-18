@@ -168,6 +168,10 @@
             <span class="info-value">{{ $bonAchat->fournisseur->nom_fourn }}</span>
         </div>
         <div class="info-row">
+            <span class="info-label">Telephone du Fournisseur :</span>
+            <span class="info-value">{{ $bonAchat->fournisseur->num_tel_fourn }}</span>
+        </div>
+        <div class="info-row">
             <span class="info-label">Date :</span>
             <span class="info-value">{{ $dateFormatted }}</span>
         </div>

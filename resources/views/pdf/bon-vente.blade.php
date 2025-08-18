@@ -165,6 +165,10 @@
             <span class="info-value">{{ $bonVente->client->nom_client }}</span>
         </div>
         <div class="info-row">
+            <span class="info-label">Telephone du Client :</span>
+            <span class="info-value">{{ $bonVente->client->num_tel_client }}</span>
+        </div>
+        <div class="info-row">
             <span class="info-label">Date :</span>
             <span class="info-value">{{ $dateFormatted }}</span>
         </div>
